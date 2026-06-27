@@ -102,25 +102,35 @@ ggplot(freelancer, aes(x = reorder(Job_Category, Earnings_USD, median), y = Earn
 
 > **Nhận định chi tiết:**
 >
-> - **Quan sát trực quan:** Khi sắp xếp theo mức thu nhập trung vị tăng
->   dần, các ngành liên quan đến công nghệ như *App Development* và *Web
->   Development* đang dẫn đầu (hộp Boxplot dịch về phía bên phải). Trong
->   khi đó, các ngành dịch vụ hỗ trợ như *Data Entry* hoặc *Customer
->   Support* có mức trung vị thấp hơn một chút.
+> - **Quan sát trực quan:** Dựa vào thứ tự trung vị tăng dần, trái với
+>   các dự đoán thông thường, các mảng dịch vụ và sáng tạo như *Graphic
+>   Design* hay *Customer Support* lại đang dẫn đầu về mức trung vị thu
+>   nhập (trên mức \$5,000) — hộp Boxplot của chúng dịch chuyển rõ rệt
+>   về phía bên phải. Ngược lại, nhóm ngành công nghệ như *Web
+>   Development* và *SEO* lại nằm ở nửa dưới (đáy bảng) của biểu đồ. Dù
+>   vậy, hình dáng Violin của toàn bộ các nhóm ngành vẫn dàn trải đều từ
+>   \$0 đến \$10,000, không có ngành nào bị bó hẹp hoàn toàn ở phân khúc
+>   thấp.
 >
-> - **Phân tích ý nghĩa:** Sự chênh lệch này phản ánh đúng quy luật
->   cung - cầu và hàm lượng chất xám của thị trường. Các công việc đòi
->   hỏi kỹ năng lập trình chuyên sâu thường có rào cản gia nhập cao, dẫn
->   đến đơn giá (rate) tốt hơn. Tuy nhiên, hình dáng Violin dàn đều cho
->   thấy ở ngành *Data Entry* vẫn có những cá nhân đạt mức thu nhập chạm
->   ngưỡng tối đa (\$10,000), có thể nhờ vào khối lượng công việc khổng
->   lồ hoặc khả năng tối ưu hóa tự động hóa cá nhân.
+> - **Phân tích ý nghĩa:** Kết quả này đi ngược lại với định kiến thông
+>   thường rằng lập trình IT luôn mang lại thu nhập cao nhất. Sự đảo
+>   ngược này cho thấy thị trường làm việc tự do có tính phân hóa đặc
+>   thù: ngành *Web Development* và *SEO* do có rào cản gia nhập ngày
+>   càng thấp (nhờ sự hỗ trợ của các công cụ low-code/no-code và AI) nên
+>   mức độ cạnh tranh và phá giá dịch vụ ở phân khúc phổ thông rất cao,
+>   làm giảm mức thu nhập trung vị. Ngược lại, các công việc sáng tạo
+>   (*Graphic Design*) hay đòi hỏi kỹ năng mềm tương tác cao (*Customer
+>   Support*) vẫn duy trì được đơn giá tốt và mang lại thu nhập ổn định
+>   nhờ vào tính chất công việc dài hạn (hợp đồng retainer/tính theo giờ
+>   liên tục).
 >
-> - **Hàm ý thực tiễn:** Nếu mục tiêu là tối đa hóa thu nhập trung bình,
->   freelancer nên đầu tư học hỏi các kỹ năng lập trình. Dù vậy, những
->   người làm nghề viết lách (Content Writing) hoặc thiết kế (Graphic
->   Design) vẫn hoàn toàn có cơ hội đạt đỉnh thu nhập nếu họ tìm được
->   phân khúc khách hàng cao cấp.
+> - **Hàm ý thực tiễn:** Freelancer không nhất thiết phlải "cố đấm ăn
+>   xôi" học các kỹ năng công nghệ cốt lõi nếu không có thế mạnh. Khai
+>   thác sâu vào mảng dịch vụ khách hàng hoặc thiết kế đồ họa bằng một
+>   khối lượng công việc đều đặn vẫn có thể mang lại mức thu nhập trung
+>   vị vượt trội hơn cả các lập trình viên. Tuy nhiên, cơ hội đạt mức
+>   thu nhập tối đa (\$10,000) vẫn chia đều cho tất cả các ngành nhờ vào
+>   năng suất làm việc của từng cá nhân.
 
 ### c. Theo Khu vực khách hàng (Client_Region)
 
