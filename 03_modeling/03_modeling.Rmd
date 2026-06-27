@@ -36,7 +36,7 @@ glimpse(freelancer)
 # 2.1 Phân loại thu nhập
 ```{r}
 median_income <- median(freelancer$Earnings_USD)
-
+median
 freelancer <- freelancer %>%
   mutate(
     Income_Level = ifelse(Earnings_USD >= median_income, "High", "Low"),
@@ -68,6 +68,23 @@ model_lm <- lm(
 )
 
 summary(model_lm)
+
+```
+```{r}
+tidy(model_lm) %>%
+  filter(term != "(Intercept)") %>%
+  ggplot(aes(
+    x = reorder(term, estimate),
+    y = estimate
+  )) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Hệ số hồi quy của các biến",
+    x = "Biến",
+    y = "Estimate"
+  ) +
+  theme_minimal()
 ```
 
 # 3.2 Đánh giá model
@@ -79,6 +96,22 @@ r2 <- cor(test$Earnings_USD, pred_lm)^2
 
 rmse
 r2
+```
+```{r}
+ggplot(
+  data.frame(
+    Actual = test$Earnings_USD,
+    Predicted = pred_lm
+  ),
+  aes(x = Actual, y = Predicted)
+) +
+  geom_point(alpha = 0.5) +
+  geom_abline(
+    slope = 1,
+    intercept = 0,
+    color = "red"
+  ) +
+  theme_minimal()
 ```
 
 # 3.3 Biểu đồ residual
@@ -93,8 +126,8 @@ ggplot(res_df, aes(x = fitted, y = residuals)) +
   geom_hline(yintercept = 0, color = "red") +
   labs(
     title = "Residual Plot - Linear Regression",
-    x = "Giá trị dự đoán",
-    y = "Sai số"
+    x = "gia tri du doan",
+    y = "Sai so"
   ) +
   theme_minimal()
 ```
@@ -125,7 +158,43 @@ prob <- predict(model_logit, test, type = "response")
 pred_class <- ifelse(prob > 0.5, "High", "Low")
 pred_class <- factor(pred_class)
 
-confusionMatrix(pred_class, test$Income_Level)
+cm <- confusionMatrix(pred_class, test$Income_Level)
+
+cm_df <- as.data.frame(cm$table)
+
+ggplot(cm_df,
+       aes(Prediction, Reference, fill = Freq)) +
+  geom_tile() +
+  geom_text(aes(label = Freq), size = 6) +
+  labs(
+    title = "Confusion Matrix",
+    x = "du doan",
+    y = "thuc te"
+  ) +
+  theme_minimal()
+cm
+precision <- cm$byClass["Pos Pred Value"]
+recall <- cm$byClass["Sensitivity"]
+f1 <- 2 * precision * recall / (precision + recall)
+
+metrics_df <- data.frame(
+  Metric = c("Precision", "Recall", "F1-score"),
+  Value = c(precision, recall, f1)
+)
+
+ggplot(metrics_df, aes(x = Metric, y = Value)) +
+  geom_col() +
+  geom_text(
+    aes(label = paste0(round(Value * 100, 1), "%")),
+    vjust = -0.3
+  ) +
+  ylim(0, 1) +
+  labs(
+    title = "Đánh giá Logistic Regression",
+    x = "Chỉ số",
+    y = "Giá trị"
+  ) +
+  theme_minimal()
 ```
 >Nhận xét:
 
@@ -156,7 +225,7 @@ tidy(model_lm) %>%
 Kết quả phân tích mang lại một số hàm ý thực tiễn như sau:
 
 - Đối với freelancer:
-  Thu nhập phụ thuộc chủ yếu vào mức giá theo giờ (Hourly_Rate) và số lượng công việc hoàn thành (Job_Completed). Vì vậy, freelancer nên tập trung vào việc nâng cao năng suất và tối ưu mức giá dịch vụ thay vì chỉ dựa vào kinh nghiệm.
+  Thu nhập phụ thuộc chủ yếu vào mức giá theo giờ (Hourly_Rate) và số lượng công việc hoàn thành (Job_Completed). Vì vậy, freelancer nên tập trung vào việc nâng cao năng suất và tối ưu mức giá dịch vụ thay vì chỉ dựa v4ào kinh nghiệm.
 
 - Đối với nền tảng freelance:
   Các nền tảng có thể cải thiện hệ sinh thái bằng cách khuyến khích freelancer tăng hiệu suất làm việc, đồng thời cung cấp công cụ hỗ trợ định giá hợp lý dựa trên thị trường.
